@@ -2,7 +2,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from manozodynas.testutils import StatefulTesting
-
+from manozodynas.models import Word
 
 class IndexTestCase(StatefulTesting):
     def test_index_page(self):
@@ -66,3 +66,17 @@ class LoginTestCase(StatefulTesting):
         })
         self.assertStatusCode(200)
         self.selectOne('.errorlist')
+
+class VerstiZodi(StatefulTesting):
+    def test_index_page(self):
+        self.open(reverse('word_type'))
+        self.selectForm('#ivesti_zodi')
+        self.submitForm({
+            'zodis': 'pasibandyt5i'
+        })
+        self.assertStatusCode(302)
+        self.assertTrue(Word.objects.filter(zodis='pasibandyt5i'))
+
+        #self.open(reverse('words_list'))
+        #self.selectTable('#zodziu_sarasas')
+        #self.assertTableHasRows('pasibandyti')

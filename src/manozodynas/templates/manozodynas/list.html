@@ -1,0 +1,8 @@
+#<table id='zodziu_sarasas'>
+{% for word in list%}
+  {{word.zodis}}:
+  {% for translation in word.translation_set.all%}
+    {{translation.vertinys}};
+  {%endfor%}
+{%endfor%}
+#</table>
